@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jogo da Velha</title>
+  <title>Jogo da Velha do Caos</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-green-500 min-h-screen flex flex-col items-center justify-center">
 
-  <h1 class="text-4xl font-bold mb-6">Jogo da Velha</h1>
+  <h1 class="text-4xl font-bold mb-6">Jogo da Velha Caótico</h1>
 
   <div class="mb-4 flex space-x-10 text-xl">
     <div>❌ X: <span id="scoreX">0</span></div>
@@ -21,6 +21,11 @@
 
   <div id="message" class="mt-6 text-2xl font-semibold"></div>
 
+  <div class="mt-6 flex space-x-4">
+    <button onclick="resetGame()" class="bg-green-700 px-4 py-2 rounded hover:bg-green-800 transition">🔄 Reiniciar</button>
+    <button onclick="explodePC()" class="bg-red-700 px-4 py-2 rounded hover:bg-red-800 transition">💥 Explodir o PC</button>
+  </div>
+
   <script>
     const boardEl = document.getElementById('board');
     const messageEl = document.getElementById('message');
@@ -31,9 +36,9 @@
     let currentPlayer = 'X';
     let score = { X: 0, O: 0 };
     const winCombos = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // linhas
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // colunas
-      [0, 4, 8], [2, 4, 6]             // diagonais
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
     ];
 
     function createBoard() {
@@ -48,7 +53,6 @@
     }
 
     function makeMove(index) {
-      if (board[index] !== '') return;
       board[index] = currentPlayer;
       createBoard();
 
@@ -66,7 +70,7 @@
     }
 
     function checkWin(player) {
-      return winCombos.some(combo => 
+      return winCombos.some(combo =>
         combo.every(index => board[index] === player)
       );
     }
@@ -87,7 +91,15 @@
       createBoard();
     }
 
-    // Inicializa o jogo
+    function explodePC() {
+      // Efeito visual simulado
+      document.body.classList.add('animate-pulse');
+      alert("💥 BOOM! (Brincadeira... seu PC está seguro 😅)");
+      setTimeout(() => {
+        document.body.classList.remove('animate-pulse');
+      }, 1000);
+    }
+
     createBoard();
   </script>
 
